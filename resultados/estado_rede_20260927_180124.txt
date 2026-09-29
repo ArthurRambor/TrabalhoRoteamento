@@ -1,0 +1,275 @@
+RELATORIO DO ESTADO DA REDE
+Data: Sun Sep 27 18:01:24 -03 2026
+
+========================================
+ROTEADOR: r1
+========================================
+--- Interfaces e IPs ---
+lo               UNKNOWN        127.0.0.1/8 ::1/128
+eth0@if45        UP             172.20.20.4/24 3fff:172:20:20::4/64 fe80::e463:65ff:fe46:d91b/64
+eth4@if52        UP             192.168.10.1/24 fe80::a8c1:abff:fe98:409f/64
+eth1@if56        UP             10.0.12.1/30 fe80::a8c1:abff:fe7c:8202/64
+eth2@if73        UP             10.0.15.2/30 fe80::a8c1:abff:fecd:db09/64
+eth3@if74        UP             10.0.13.1/30 fe80::a8c1:abff:fe4b:c375/64
+
+--- Tabela de rotas ---
+Codes: K - kernel route, C - connected, S - static, R - RIP,
+       O - OSPF, I - IS-IS, B - BGP, E - EIGRP, N - NHRP,
+       T - Table, v - VNC, V - VNC-Direct, A - Babel, F - PBR,
+       f - OpenFabric,
+       > - selected route, * - FIB route, q - queued, r - rejected, b - backup
+       t - trapped, o - offload failure
+
+K>* 0.0.0.0/0 [0/0] via 172.20.20.1, eth0, 00:53:51
+O   10.0.12.0/30 [110/10] is directly connected, eth1, weight 1, 00:11:51
+C>* 10.0.12.0/30 is directly connected, eth1, 00:11:51
+O   10.0.13.0/30 [110/10] is directly connected, eth3, weight 1, 00:07:23
+C>* 10.0.13.0/30 is directly connected, eth3, 00:08:08
+O   10.0.15.0/30 [110/10] is directly connected, eth2, weight 1, 00:08:08
+C>* 10.0.15.0/30 is directly connected, eth2, 00:08:08
+O>* 10.0.23.0/30 [110/20] via 10.0.12.2, eth1, weight 1, 00:07:18
+  *                       via 10.0.13.2, eth3, weight 1, 00:07:18
+O>* 10.0.34.0/30 [110/20] via 10.0.13.2, eth3, weight 1, 00:07:18
+O>* 10.0.35.0/30 [110/20] via 10.0.13.2, eth3, weight 1, 00:07:18
+  *                       via 10.0.15.1, eth2, weight 1, 00:07:18
+O>* 10.0.45.0/30 [110/20] via 10.0.15.1, eth2, weight 1, 00:07:18
+C>* 172.20.20.0/24 is directly connected, eth0, 00:53:51
+O   192.168.10.0/24 [110/10] is directly connected, eth4, weight 1, 00:25:57
+C>* 192.168.10.0/24 is directly connected, eth4, 00:25:57
+O>* 192.168.50.0/24 [110/20] via 10.0.15.1, eth2, weight 1, 00:07:18
+
+--- Vizinhos OSPF ---
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+2.2.2.2           1 Full/DR         11m06s            33.483s 10.0.12.2       eth1:10.0.12.1                       0     0     0
+5.5.5.5           1 Full/DR         7m22s             32.346s 10.0.15.1       eth2:10.0.15.2                       0     0     0
+3.3.3.3           1 Full/DR         7m22s             32.172s 10.0.13.2       eth3:10.0.13.1                       0     0     0
+
+
+========================================
+ROTEADOR: r2
+========================================
+--- Interfaces e IPs ---
+lo               UNKNOWN        127.0.0.1/8 ::1/128
+eth0@if55        UP             172.20.20.3/24 3fff:172:20:20::3/64 fe80::48bb:deff:fe2b:10ba/64
+eth1@if57        UP             10.0.12.2/30 fe80::a8c1:abff:fe9b:e437/64
+eth2@if66        UP             10.0.23.1/30 fe80::a8c1:abff:fe6c:aaf7/64
+
+--- Tabela de rotas ---
+Codes: K - kernel route, C - connected, S - static, R - RIP,
+       O - OSPF, I - IS-IS, B - BGP, E - EIGRP, N - NHRP,
+       T - Table, v - VNC, V - VNC-Direct, A - Babel, F - PBR,
+       f - OpenFabric,
+       > - selected route, * - FIB route, q - queued, r - rejected, b - backup
+       t - trapped, o - offload failure
+
+K>* 0.0.0.0/0 [0/0] via 172.20.20.1, eth0, 00:21:55
+O   10.0.12.0/30 [110/10] is directly connected, eth1, weight 1, 00:11:47
+C>* 10.0.12.0/30 is directly connected, eth1, 00:11:47
+O>* 10.0.13.0/30 [110/20] via 10.0.12.1, eth1, weight 1, 00:07:18
+  *                       via 10.0.23.2, eth2, weight 1, 00:07:18
+O>* 10.0.15.0/30 [110/20] via 10.0.12.1, eth1, weight 1, 00:08:08
+O   10.0.23.0/30 [110/10] is directly connected, eth2, weight 1, 00:08:08
+C>* 10.0.23.0/30 is directly connected, eth2, 00:08:08
+O>* 10.0.34.0/30 [110/20] via 10.0.23.2, eth2, weight 1, 00:07:23
+O>* 10.0.35.0/30 [110/20] via 10.0.23.2, eth2, weight 1, 00:07:23
+O>* 10.0.45.0/30 [110/30] via 10.0.12.1, eth1, weight 1, 00:07:18
+  *                       via 10.0.23.2, eth2, weight 1, 00:07:18
+C>* 172.20.20.0/24 is directly connected, eth0, 00:21:55
+O>* 192.168.10.0/24 [110/20] via 10.0.12.1, eth1, weight 1, 00:10:57
+O>* 192.168.50.0/24 [110/30] via 10.0.12.1, eth1, weight 1, 00:07:18
+  *                          via 10.0.23.2, eth2, weight 1, 00:07:18
+
+--- Vizinhos OSPF ---
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+1.1.1.1           1 Full/Backup     11m06s            38.513s 10.0.12.1       eth1:10.0.12.2                       0     0     0
+3.3.3.3           1 Full/DR         7m28s             31.931s 10.0.23.2       eth2:10.0.23.1                       0     0     0
+
+
+========================================
+ROTEADOR: r3
+========================================
+--- Interfaces e IPs ---
+lo               UNKNOWN        127.0.0.1/8 ::1/128
+eth0@if63        UP             172.20.20.2/24 3fff:172:20:20::2/64 fe80::2418:17ff:fe3a:3d90/64
+eth1@if67        UP             10.0.23.2/30 fe80::a8c1:abff:fe0c:1bb7/64
+eth2@if68        UP             10.0.34.1/30 fe80::a8c1:abff:fe44:2c73/64
+eth3@if75        UP             10.0.13.2/30 fe80::a8c1:abff:fe47:2879/64
+eth4@if76        UP             10.0.35.1/30 fe80::a8c1:abff:febc:9653/64
+
+--- Tabela de rotas ---
+Codes: K - kernel route, C - connected, S - static, R - RIP,
+       O - OSPF, I - IS-IS, B - BGP, E - EIGRP, N - NHRP,
+       T - Table, v - VNC, V - VNC-Direct, A - Babel, F - PBR,
+       f - OpenFabric,
+       > - selected route, * - FIB route, q - queued, r - rejected, b - backup
+       t - trapped, o - offload failure
+
+K>* 0.0.0.0/0 [0/0] via 172.20.20.1, eth0, 00:10:32
+O>* 10.0.12.0/30 [110/20] via 10.0.13.1, eth3, weight 1, 00:07:18
+  *                       via 10.0.23.1, eth1, weight 1, 00:07:18
+O   10.0.13.0/30 [110/10] is directly connected, eth3, weight 1, 00:08:08
+C>* 10.0.13.0/30 is directly connected, eth3, 00:08:08
+O>* 10.0.15.0/30 [110/20] via 10.0.13.1, eth3, weight 1, 00:07:18
+  *                       via 10.0.35.2, eth4, weight 1, 00:07:18
+O   10.0.23.0/30 [110/10] is directly connected, eth1, weight 1, 00:08:08
+C>* 10.0.23.0/30 is directly connected, eth1, 00:08:08
+O   10.0.34.0/30 [110/10] is directly connected, eth2, weight 1, 00:08:08
+C>* 10.0.34.0/30 is directly connected, eth2, 00:08:08
+O   10.0.35.0/30 [110/10] is directly connected, eth4, weight 1, 00:08:08
+C>* 10.0.35.0/30 is directly connected, eth4, 00:08:08
+O>* 10.0.45.0/30 [110/20] via 10.0.34.2, eth2, weight 1, 00:07:18
+  *                       via 10.0.35.2, eth4, weight 1, 00:07:18
+C>* 172.20.20.0/24 is directly connected, eth0, 00:10:32
+O>* 192.168.10.0/24 [110/20] via 10.0.13.1, eth3, weight 1, 00:07:18
+O>* 192.168.50.0/24 [110/20] via 10.0.35.2, eth4, weight 1, 00:07:23
+
+--- Vizinhos OSPF ---
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+2.2.2.2           1 Full/Backup     7m28s             31.729s 10.0.23.1       eth1:10.0.23.2                       0     0     0
+4.4.4.4           1 Full/DR         7m28s             31.899s 10.0.34.2       eth2:10.0.34.1                       0     0     0
+1.1.1.1           1 Full/Backup     7m23s             31.686s 10.0.13.1       eth3:10.0.13.2                       0     0     0
+5.5.5.5           1 Full/DR         7m23s             32.033s 10.0.35.2       eth4:10.0.35.1                       0     0     0
+
+
+========================================
+ROTEADOR: r4
+========================================
+--- Interfaces e IPs ---
+lo               UNKNOWN        127.0.0.1/8 ::1/128
+eth0@if64        UP             172.20.20.5/24 3fff:172:20:20::5/64 fe80::7864:b4ff:fe43:28bc/64
+eth1@if69        UP             10.0.34.2/30 fe80::a8c1:abff:fede:f98/64
+eth2@if70        UP             10.0.45.1/30 fe80::a8c1:abff:fe52:6ad/64
+
+--- Tabela de rotas ---
+Codes: K - kernel route, C - connected, S - static, R - RIP,
+       O - OSPF, I - IS-IS, B - BGP, E - EIGRP, N - NHRP,
+       T - Table, v - VNC, V - VNC-Direct, A - Babel, F - PBR,
+       f - OpenFabric,
+       > - selected route, * - FIB route, q - queued, r - rejected, b - backup
+       t - trapped, o - offload failure
+
+K>* 0.0.0.0/0 [0/0] via 172.20.20.1, eth0, 00:10:32
+O>* 10.0.12.0/30 [110/30] via 10.0.34.1, eth1, weight 1, 00:07:18
+  *                       via 10.0.45.2, eth2, weight 1, 00:07:18
+O>* 10.0.13.0/30 [110/20] via 10.0.34.1, eth1, weight 1, 00:07:23
+O>* 10.0.15.0/30 [110/20] via 10.0.45.2, eth2, weight 1, 00:07:23
+O>* 10.0.23.0/30 [110/20] via 10.0.34.1, eth1, weight 1, 00:07:23
+O   10.0.34.0/30 [110/10] is directly connected, eth1, weight 1, 00:08:08
+C>* 10.0.34.0/30 is directly connected, eth1, 00:08:08
+O>* 10.0.35.0/30 [110/20] via 10.0.34.1, eth1, weight 1, 00:07:18
+  *                       via 10.0.45.2, eth2, weight 1, 00:07:18
+O   10.0.45.0/30 [110/10] is directly connected, eth2, weight 1, 00:08:08
+C>* 10.0.45.0/30 is directly connected, eth2, 00:08:08
+C>* 172.20.20.0/24 is directly connected, eth0, 00:10:32
+O>* 192.168.10.0/24 [110/30] via 10.0.34.1, eth1, weight 1, 00:07:18
+  *                          via 10.0.45.2, eth2, weight 1, 00:07:18
+O>* 192.168.50.0/24 [110/20] via 10.0.45.2, eth2, weight 1, 00:07:23
+
+--- Vizinhos OSPF ---
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+3.3.3.3           1 Full/Backup     7m28s             31.615s 10.0.34.1       eth1:10.0.34.2                       0     0     0
+5.5.5.5           1 Full/DR         7m28s             31.790s 10.0.45.2       eth2:10.0.45.1                       0     0     0
+
+
+========================================
+ROTEADOR: r5
+========================================
+--- Interfaces e IPs ---
+lo               UNKNOWN        127.0.0.1/8 ::1/128
+eth0@if65        UP             172.20.20.6/24 3fff:172:20:20::6/64 fe80::b40a:8cff:fe56:2310/64
+eth1@if71        UP             10.0.45.2/30 fe80::a8c1:abff:fe28:5659/64
+eth2@if72        UP             10.0.15.1/30 fe80::a8c1:abff:fe47:f5f8/64
+eth3@if77        UP             10.0.35.2/30 fe80::a8c1:abff:fe94:d69e/64
+eth4@if78        UP             192.168.50.1/24 fe80::a8c1:abff:fe65:f19a/64
+
+--- Tabela de rotas ---
+Codes: K - kernel route, C - connected, S - static, R - RIP,
+       O - OSPF, I - IS-IS, B - BGP, E - EIGRP, N - NHRP,
+       T - Table, v - VNC, V - VNC-Direct, A - Babel, F - PBR,
+       f - OpenFabric,
+       > - selected route, * - FIB route, q - queued, r - rejected, b - backup
+       t - trapped, o - offload failure
+
+K>* 0.0.0.0/0 [0/0] via 172.20.20.1, eth0, 00:10:33
+O>* 10.0.12.0/30 [110/20] via 10.0.15.2, eth2, weight 1, 00:07:19
+O>* 10.0.13.0/30 [110/20] via 10.0.15.2, eth2, weight 1, 00:07:19
+  *                       via 10.0.35.1, eth3, weight 1, 00:07:19
+O   10.0.15.0/30 [110/10] is directly connected, eth2, weight 1, 00:08:09
+C>* 10.0.15.0/30 is directly connected, eth2, 00:08:09
+O>* 10.0.23.0/30 [110/20] via 10.0.35.1, eth3, weight 1, 00:07:19
+O>* 10.0.34.0/30 [110/20] via 10.0.35.1, eth3, weight 1, 00:07:19
+  *                       via 10.0.45.1, eth1, weight 1, 00:07:19
+O   10.0.35.0/30 [110/10] is directly connected, eth3, weight 1, 00:08:09
+C>* 10.0.35.0/30 is directly connected, eth3, 00:08:09
+O   10.0.45.0/30 [110/10] is directly connected, eth1, weight 1, 00:08:09
+C>* 10.0.45.0/30 is directly connected, eth1, 00:08:09
+C>* 172.20.20.0/24 is directly connected, eth0, 00:10:33
+O>* 192.168.10.0/24 [110/20] via 10.0.15.2, eth2, weight 1, 00:07:19
+O   192.168.50.0/24 [110/10] is directly connected, eth4, weight 1, 00:08:09
+C>* 192.168.50.0/24 is directly connected, eth4, 00:08:09
+
+--- Vizinhos OSPF ---
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+4.4.4.4           1 Full/Backup     7m28s             31.588s 10.0.45.1       eth1:10.0.45.2                       0     0     0
+1.1.1.1           1 Full/Backup     7m23s             31.308s 10.0.15.2       eth2:10.0.15.1                       0     0     0
+3.3.3.3           1 Full/Backup     7m23s             31.517s 10.0.35.1       eth3:10.0.35.2                       0     0     0
+
+
+========================================
+HOST: host-a
+========================================
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host
+       valid_lft forever preferred_lft forever
+2: eth0@if25: <BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN> mtu 1500 qdisc noqueue state UP
+    link/ether 22:f3:79:28:e3:06 brd ff:ff:ff:ff:ff:ff
+    inet 172.20.20.8/24 brd 172.20.20.255 scope global eth0
+       valid_lft forever preferred_lft forever
+    inet6 3fff:172:20:20::8/64 scope global flags 02
+       valid_lft forever preferred_lft forever
+    inet6 fe80::20f3:79ff:fe28:e306/64 scope link
+       valid_lft forever preferred_lft forever
+52: eth1@if53: <BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN> mtu 9500 qdisc noqueue state UP
+    link/ether aa:c1:ab:f1:a2:cd brd ff:ff:ff:ff:ff:ff
+    inet 192.168.10.10/24 scope global eth1
+       valid_lft forever preferred_lft forever
+    inet6 fe80::a8c1:abff:fef1:a2cd/64 scope link
+       valid_lft forever preferred_lft forever
+default via 192.168.10.1 dev eth1
+172.20.20.0/24 dev eth0 scope link  src 172.20.20.8
+192.168.10.0/24 dev eth1 scope link  src 192.168.10.10
+
+========================================
+HOST: host-b
+========================================
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host
+       valid_lft forever preferred_lft forever
+2: eth0@if24: <BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN> mtu 1500 qdisc noqueue state UP
+    link/ether 02:58:c5:50:92:06 brd ff:ff:ff:ff:ff:ff
+    inet 172.20.20.7/24 brd 172.20.20.255 scope global eth0
+       valid_lft forever preferred_lft forever
+    inet6 3fff:172:20:20::7/64 scope global flags 02
+       valid_lft forever preferred_lft forever
+    inet6 fe80::58:c5ff:fe50:9206/64 scope link
+       valid_lft forever preferred_lft forever
+78: eth1@if79: <BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN> mtu 9500 qdisc noqueue state UP
+    link/ether aa:c1:ab:f2:4f:5c brd ff:ff:ff:ff:ff:ff
+    inet 192.168.50.10/24 scope global eth1
+       valid_lft forever preferred_lft forever
+    inet6 fe80::a8c1:abff:fef2:4f5c/64 scope link
+       valid_lft forever preferred_lft forever
+default via 192.168.50.1 dev eth1
+172.20.20.0/24 dev eth0 scope link  src 172.20.20.7
+192.168.50.0/24 dev eth1 scope link  src 192.168.50.10

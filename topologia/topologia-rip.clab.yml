@@ -1,0 +1,108 @@
+name: roteamento-rip
+
+topology:
+  nodes:
+    r1:
+      kind: linux
+      exec:
+        - ip link set eth1 up
+        - ip addr replace 10.0.12.1/30 dev eth1
+        - ip link set eth2 up
+        - ip addr replace 10.0.15.2/30 dev eth2
+        - ip link set eth3 up
+        - ip addr replace 10.0.13.1/30 dev eth3
+        - ip link set eth4 up
+        - ip addr replace 192.168.10.1/24 dev eth4
+      image: frrouting/frr:latest
+      binds:
+        - ../configuracoes/rip/r1/frr.conf:/etc/frr/frr.conf
+        - ../configuracoes/rip/r1/daemons:/etc/frr/daemons
+
+    r2:
+      kind: linux
+      exec:
+        - ip link set eth1 up
+        - ip addr replace 10.0.12.2/30 dev eth1
+        - ip link set eth2 up
+        - ip addr replace 10.0.23.1/30 dev eth2
+      image: frrouting/frr:latest
+      binds:
+        - ../configuracoes/rip/r2/frr.conf:/etc/frr/frr.conf
+        - ../configuracoes/rip/r2/daemons:/etc/frr/daemons
+
+    r3:
+      kind: linux
+      exec:
+        - ip link set eth1 up
+        - ip addr replace 10.0.23.2/30 dev eth1
+        - ip link set eth2 up
+        - ip addr replace 10.0.34.1/30 dev eth2
+        - ip link set eth3 up
+        - ip addr replace 10.0.13.2/30 dev eth3
+        - ip link set eth4 up
+        - ip addr replace 10.0.35.1/30 dev eth4
+      image: frrouting/frr:latest
+      binds:
+        - ../configuracoes/rip/r3/frr.conf:/etc/frr/frr.conf
+        - ../configuracoes/rip/r3/daemons:/etc/frr/daemons
+
+    r4:
+      kind: linux
+      exec:
+        - ip link set eth1 up
+        - ip addr replace 10.0.34.2/30 dev eth1
+        - ip link set eth2 up
+        - ip addr replace 10.0.45.1/30 dev eth2
+      image: frrouting/frr:latest
+      binds:
+        - ../configuracoes/rip/r4/frr.conf:/etc/frr/frr.conf
+        - ../configuracoes/rip/r4/daemons:/etc/frr/daemons
+
+    r5:
+      kind: linux
+      exec:
+        - ip link set eth1 up
+        - ip addr replace 10.0.45.2/30 dev eth1
+        - ip link set eth2 up
+        - ip addr replace 10.0.15.1/30 dev eth2
+        - ip link set eth3 up
+        - ip addr replace 10.0.35.2/30 dev eth3
+        - ip link set eth4 up
+        - ip addr replace 192.168.50.1/24 dev eth4
+      image: frrouting/frr:latest
+      binds:
+        - ../configuracoes/rip/r5/frr.conf:/etc/frr/frr.conf
+        - ../configuracoes/rip/r5/daemons:/etc/frr/daemons
+
+    # Hosts finais
+    host-a:
+      kind: linux
+      image: alpine:latest
+      exec:
+        - ip link set eth1 up
+        - ip addr replace 192.168.10.10/24 dev eth1
+        - ip route replace default via 192.168.10.1
+
+    host-b:
+      kind: linux
+      image: alpine:latest
+      exec:
+        - ip link set eth1 up
+        - ip addr replace 192.168.50.10/24 dev eth1
+        - ip route replace default via 192.168.50.1
+
+  links:
+    # Anel principal
+    - endpoints: ["r1:eth1", "r2:eth1"]
+    - endpoints: ["r2:eth2", "r3:eth1"]
+    - endpoints: ["r3:eth2", "r4:eth1"]
+    - endpoints: ["r4:eth2", "r5:eth1"]
+    - endpoints: ["r5:eth2", "r1:eth2"]
+
+    # Enlaces diagonais para caminhos alternativos
+    - endpoints: ["r1:eth3", "r3:eth3"]
+    - endpoints: ["r3:eth4", "r5:eth3"]
+
+    # Hosts finais
+    - endpoints: ["r1:eth4", "host-a:eth1"]
+    - endpoints: ["r5:eth4", "host-b:eth1"]

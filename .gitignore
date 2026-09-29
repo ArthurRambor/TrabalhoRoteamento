@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# Temporários e logs
+*.log
+*.tmp
+*.swp
+.DS_Store
+
+# Arquivos de captura temporários
+*.pcap.tmp
+
+# Saídas temporárias do Containerlab
+.clab/
+
+# Arquivos de sistema
+Thumbs.db
+
+# Artefatos gerados pelo Containerlab
+topologia/clab-roteamento/
+topologia/clab-roteamento-rip/
+**/.tls/
+**/ca.key
+**/authorized_keys
+**/.state.clab.yaml
+**/ansible-inventory.yml
+**/nornir-simple-inventory.yml
+**/topology-data.json
+
+# Backups locais com arquivos restritos
+backup/frr/
+backup/estado_atual_20260927_175944/
+
+# Configurações originais restritas; publicar as cópias legíveis
+/configuracoes/
+/publicacao/configuracoes/
+!/publicacao/configuracoes/
+!/publicacao/configuracoes/**
+
+# Backups locais e versões antigas da topologia
+/backup/
+/topologia/*.antes_ips_persistentes
+/topologia/*.antes_persistencia
+/topologia/*.bak
+
+# Cópia redundante de backup das configurações OSPF
+/publicacao/configuracoes/ospf/backup_atual/

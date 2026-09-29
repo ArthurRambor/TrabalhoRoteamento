@@ -1,0 +1,102 @@
+name: roteamento-algoritmo
+
+topology:
+  nodes:
+    r1:
+      kind: linux
+      image: frrouting/frr:latest
+      binds:
+        - ../configuracoes/algoritmo/r1/daemons:/etc/frr/daemons
+        - ../configuracoes/algoritmo/r1/frr.conf:/etc/frr/frr.conf
+      exec:
+        - ip addr add 10.10.12.1/30 dev eth1
+        - ip addr add 10.10.15.2/30 dev eth2
+        - ip addr add 10.10.13.1/30 dev eth3
+        - ip addr add 192.168.110.1/24 dev eth4
+        - ip link set eth1 up
+        - ip link set eth2 up
+        - ip link set eth3 up
+        - ip link set eth4 up
+
+    r2:
+      kind: linux
+      image: frrouting/frr:latest
+      binds:
+        - ../configuracoes/algoritmo/r2/daemons:/etc/frr/daemons
+        - ../configuracoes/algoritmo/r2/frr.conf:/etc/frr/frr.conf
+      exec:
+        - ip addr add 10.10.12.2/30 dev eth1
+        - ip addr add 10.10.23.1/30 dev eth2
+        - ip link set eth1 up
+        - ip link set eth2 up
+
+    r3:
+      kind: linux
+      image: frrouting/frr:latest
+      binds:
+        - ../configuracoes/algoritmo/r3/daemons:/etc/frr/daemons
+        - ../configuracoes/algoritmo/r3/frr.conf:/etc/frr/frr.conf
+      exec:
+        - ip addr add 10.10.23.2/30 dev eth1
+        - ip addr add 10.10.34.1/30 dev eth2
+        - ip addr add 10.10.13.2/30 dev eth3
+        - ip addr add 10.10.35.1/30 dev eth4
+        - ip link set eth1 up
+        - ip link set eth2 up
+        - ip link set eth3 up
+        - ip link set eth4 up
+
+    r4:
+      kind: linux
+      image: frrouting/frr:latest
+      binds:
+        - ../configuracoes/algoritmo/r4/daemons:/etc/frr/daemons
+        - ../configuracoes/algoritmo/r4/frr.conf:/etc/frr/frr.conf
+      exec:
+        - ip addr add 10.10.34.2/30 dev eth1
+        - ip addr add 10.10.45.1/30 dev eth2
+        - ip link set eth1 up
+        - ip link set eth2 up
+
+    r5:
+      kind: linux
+      image: frrouting/frr:latest
+      binds:
+        - ../configuracoes/algoritmo/r5/daemons:/etc/frr/daemons
+        - ../configuracoes/algoritmo/r5/frr.conf:/etc/frr/frr.conf
+      exec:
+        - ip addr add 10.10.45.2/30 dev eth1
+        - ip addr add 10.10.15.1/30 dev eth2
+        - ip addr add 10.10.35.2/30 dev eth3
+        - ip addr add 192.168.150.1/24 dev eth4
+        - ip link set eth1 up
+        - ip link set eth2 up
+        - ip link set eth3 up
+        - ip link set eth4 up
+
+    host-a:
+      kind: linux
+      image: alpine:latest
+      exec:
+        - ip addr add 192.168.110.10/24 dev eth1
+        - ip route add default via 192.168.110.1
+        - ip link set eth1 up
+
+    host-b:
+      kind: linux
+      image: alpine:latest
+      exec:
+        - ip addr add 192.168.150.10/24 dev eth1
+        - ip route add default via 192.168.150.1
+        - ip link set eth1 up
+
+  links:
+    - endpoints: ["r1:eth1", "r2:eth1"]
+    - endpoints: ["r2:eth2", "r3:eth1"]
+    - endpoints: ["r3:eth2", "r4:eth1"]
+    - endpoints: ["r4:eth2", "r5:eth1"]
+    - endpoints: ["r5:eth2", "r1:eth2"]
+    - endpoints: ["r1:eth3", "r3:eth3"]
+    - endpoints: ["r3:eth4", "r5:eth3"]
+    - endpoints: ["r1:eth4", "host-a:eth1"]
+    - endpoints: ["r5:eth4", "host-b:eth1"]

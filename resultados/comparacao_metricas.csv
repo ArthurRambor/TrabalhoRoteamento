@@ -1,0 +1,4 @@
+cenario,rotas_R1,rotas_FIB_R1,pacotes_controle_R1_eth1_60s,bytes_protocolo_R1_eth1_60s,taxa_bit_s,latencia_ping_ms,perda_ping_pct,tempo_troca_ms,tempo_restauracao_ms,observacoes
+OSPF,15,11,12,576,76.80,,,,"","Captura apenas de Hellos na eth1; latencia historica A-B 0.216 ms e B-A 0.172 ms"
+RIP,11,11,7,728,97.07,,,,"","Captura Request/Response na eth1; latencia apos redeploy A-B 0.276 ms e B-A 0.151 ms"
+Algoritmo,7,7,,,,0.0925,0,537.2,501.8,"Rotas estaticas; media de dois ensaios de failover; ping na rota alternativa"

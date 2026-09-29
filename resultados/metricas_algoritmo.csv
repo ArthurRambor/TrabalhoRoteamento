@@ -1,0 +1,4 @@
+ensaio,troca_ms,restauracao_ms,perda_ping_pct,latencia_media_ping_ms,mudancas
+1,569.0,537.8,0,0.097,2
+2,505.4,465.8,0,0.088,2
+media,537.2,501.8,0,0.0925,2

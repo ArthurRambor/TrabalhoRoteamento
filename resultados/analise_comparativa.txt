@@ -1,0 +1,19 @@
+ANÁLISE COMPARATIVA DOS CENÁRIOS DE ROTEAMENTO
+
+1. Quantidade de rotas
+No roteador R1, o OSPF apresentou 15 entradas na tabela de rotas e 11 rotas instaladas na FIB. O RIP apresentou 11 entradas e 11 rotas na FIB. O cenário com algoritmo próprio apresentou 7 entradas e 7 rotas na FIB, utilizando rotas estáticas. Os valores são específicos do R1 e não representam a quantidade total de rotas da rede.
+
+2. Tráfego de controle
+Nas capturas de 60 segundos realizadas na interface eth1 do R1, foram observados 12 pacotes OSPF, totalizando 576 bytes de protocolo, e 7 pacotes RIP, totalizando 728 bytes. As taxas médias calculadas foram 76,80 bit/s para OSPF e 97,07 bit/s para RIP. A captura OSPF continha mensagens Hello, enquanto a captura RIP continha uma requisição e respostas. Portanto, os valores representam somente o tráfego observado nessa interface e nessa janela, não o consumo total dos protocolos.
+
+3. Algoritmo próprio
+O algoritmo utiliza monitoramento por ping e troca entre uma rota principal e uma alternativa, com rotas estáticas. Em dois ensaios, o tempo médio de troca para a rota alternativa foi de 537,2 ms, e o tempo médio de restauração foi de 501,8 ms. Os testes de ping na rota alternativa registraram perda de 0% e latência média consolidada de 0,0925 ms.
+
+4. Conectividade e tolerância a falhas
+Nos testes realizados, a comunicação entre os hosts foi mantida após a troca para a rota alternativa, com quatro respostas em quatro tentativas em cada teste registrado. O algoritmo também restaurou a rota principal após a recuperação do enlace monitorado. Esses resultados demonstram o funcionamento observado nos ensaios, mas não constituem uma avaliação exaustiva de todos os cenários de falha.
+
+5. Limitações da comparação
+As capturas de OSPF e RIP foram realizadas em uma única interface e em janelas específicas. As latências de OSPF e RIP disponíveis foram obtidas em testes anteriores ou em condições diferentes das medições do algoritmo. Além disso, foram realizados somente dois ensaios completos de failover do algoritmo. Assim, os resultados devem ser interpretados como medições experimentais preliminares, e não como uma classificação definitiva de desempenho entre os métodos.
+
+6. Trabalhos futuros
+Para ampliar a comparação, recomenda-se executar testes de falha e recuperação com OSPF e RIP, usando a mesma topologia, os mesmos enlaces, o mesmo tráfego e o mesmo procedimento de medição do algoritmo próprio. Também é recomendável aumentar o número de ensaios e medir a perda de pacotes durante toda a transição de rota.

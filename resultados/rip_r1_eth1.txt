@@ -1,0 +1,35 @@
+CAPTURA DE TRÁFEGO RIP - R1 ETH1
+Data: 27/09/2026
+Protocolo: RIPv2
+Interface monitorada: R1 eth1
+Rede: 10.0.12.0/30
+R1: 10.0.12.1
+R2: 10.0.12.2
+Porta UDP: 520
+Endereço multicast: 224.0.0.9
+
+RESULTADOS
+Pacotes capturados: 5
+Solicitações (Request): 1
+Respostas (Response): 4
+Pacotes descartados pelo kernel: 0
+Bytes UDP observados: 420
+Tamanho médio UDP por pacote: 84 bytes
+Intervalo entre o primeiro e o último pacote: aproximadamente 28,14 segundos
+
+DETALHAMENTO
+1. R1 -> 224.0.0.9: Request, 24 bytes UDP
+2. R2 -> R1: Response, 84 bytes UDP
+3. R2 -> 224.0.0.9: Response, 84 bytes UDP
+4. R1 -> 224.0.0.9: Response, 144 bytes UDP
+5. R2 -> 224.0.0.9: Response, 84 bytes UDP
+
+OBSERVAÇÃO
+A captura foi realizada na interface eth1 do R1, durante um intervalo
+limitado. Os 420 bytes correspondem à soma dos tamanhos UDP informados
+pelo tcpdump, sem incluir os cabeçalhos IP e Ethernet.
+Este resultado representa uma amostra do tráfego, não o tráfego total
+da rede nem uma medição completa de largura de banda.
+
+ARQUIVO DE CAPTURA
+rip_r1_eth1.pcap

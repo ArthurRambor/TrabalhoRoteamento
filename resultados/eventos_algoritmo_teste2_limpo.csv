@@ -1,0 +1,7 @@
+timestamp,evento,detalhe,perda_pacotes_janela,numero_mudancas
+2026-09-28T20:52:13.650-03:00,INICIO_MONITORAMENTO,alvo=10.10.12.2 de=r1 intervalo=1s limiar=3/3 dry_run=False,,
+2026-09-28T20:53:17.327-03:00,FALHA_DETECTADA,3 verificações sem resposta em 10.10.12.2,,
+2026-09-28T20:53:17.833-03:00,ROTA_TROCADA,principal -> alternativa (505.4 ms),4,1
+2026-09-28T20:54:43.432-03:00,RECUPERACAO_DETECTADA,3 verificações OK consecutivas em 10.10.12.2,,
+2026-09-28T20:54:43.899-03:00,ROTA_RESTAURADA,alternativa -> principal (465.8 ms),0,2
+2026-09-28T20:55:19.544-03:00,FIM_MONITORAMENTO,interrompido pelo usuário (estado=principal),,2

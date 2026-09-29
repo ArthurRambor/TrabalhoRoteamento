@@ -1,0 +1,12 @@
+Captura RIP - R1 eth1
+Duracao: 60 segundos
+Pacotes capturados: 7
+Pacotes recebidos pelo filtro: 7
+Pacotes descartados pelo kernel: 0
+Requisicoes: 1
+Respostas: 6
+Bytes RIP observados: 728
+Tamanho medio por pacote: 104 bytes
+Taxa media observada: 97.1 bit/s
+
+Observacao: os comprimentos correspondem aos valores informados pelo tcpdump para os pacotes RIP, sem incluir cabecalhos IP e Ethernet. A captura e limitada a interface eth1 e a janela observada.
