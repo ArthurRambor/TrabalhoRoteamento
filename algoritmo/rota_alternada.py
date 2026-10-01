@@ -1,36 +1,5 @@
 #!/usr/bin/env python3
-"""
-rota_alternada.py — algoritmo "Rota Alternada por Falha"
-(implementação da proposta descrita na seção 8 do relatório de andamento)
 
-Caminho principal:      R1 -> R2 -> R3 -> R4 -> R5
-Caminho alternativo:    R1 -> R3 -> R5  (diagonais)
-
-Funcionamento (igual ao "Funcionamento proposto" do relatório):
-  1. Monitora periodicamente, via ping, a disponibilidade do próximo salto
-     do caminho principal (R1 -> R2).
-  2. Após LIMIAR_FALHAS verificações consecutivas sem resposta, considera o
-     caminho principal indisponível e aplica as rotas alternativas nos
-     roteadores envolvidos (R1, R3 e R5 — R2 e R4 não são tocados).
-  3. Após LIMIAR_SUCESSOS verificações consecutivas bem-sucedidas do caminho
-     principal, retorna às rotas principais.
-  4. Registra: horário de falha, detecção, alteração de rota, recuperação,
-     perda de pacotes e número de mudanças — tudo em resultados/eventos.csv.
-
-A troca de rota é feita via vtysh (rota estática do FRR), não via `ip route`
-direto no kernel, para ficar consistente com o restante do ambiente (que já
-é gerenciado pelo FRR) e evitar que o zebra reconcilie/ignore uma rota
-inserida por fora dele.
-
-Uso:
-    python3 algoritmo/rota_alternada.py                # monitoramento contínuo
-    python3 algoritmo/rota_alternada.py --dry-run       # mostra os comandos, não executa
-    python3 algoritmo/rota_alternada.py --once-status   # testa o link uma vez e sai
-
-Rode a partir da raiz do projeto (~/trabalho-roteamento), para que os logs
-caiam em resultados/eventos.csv como esperado pela estrutura de pastas do
-relatório.
-"""
 
 import argparse
 import csv
